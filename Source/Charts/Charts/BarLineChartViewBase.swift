@@ -740,7 +740,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         }
         else if recognizer.state == NSUIGestureRecognizerState.changed
         {
-            if _isDragMarker
+            if _isDragging
             {
                 let originalTranslation = recognizer.translation(in: self)
                 var translation = CGPoint(x: originalTranslation.x - _lastPanPoint.x, y: originalTranslation.y - _lastPanPoint.y)
@@ -758,7 +758,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
                 
                 _lastPanPoint = originalTranslation
             }
-            else if isHighlightPerDragEnabled
+            else if _isDragMarker
             {
                 let h = getHighlightByTouchPoint(recognizer.location(in: self))
                 
