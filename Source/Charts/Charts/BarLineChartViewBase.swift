@@ -39,6 +39,9 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     /// flag indicating if the grid background should be drawn or not
     @objc open var drawGridBackgroundEnabled = false
     
+    /// the highlightDrag activity section height radio
+    @objc open var highlightDragRadio: CGFloat = 0.8
+    
     /// When enabled, the borders rectangle will be rendered.
     /// If this is enabled, there is no point drawing the axis-lines of x- and y-axis.
     @objc open var drawBordersEnabled = false
@@ -509,6 +512,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     }
     
     private var _isDragging = false
+    private var _isDragMarker = false
     private var _isScaling = false
     private var _gestureScaleAxis = GestureScaleAxis.both
     private var _closestDataSetToTouch: IChartDataSet!
@@ -684,10 +688,20 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             // If drag is enabled and we are in a position where there's something to drag:
             //  * If we're zoomed in, then obviously we have something to drag.
             //  * If we have a drag offset - we always have something to drag
-            if !self.hasNoDragOffset || !self.isFullyZoomedOut
+            let touchP: CGPoint = recognizer.location(in: self)
+            let touchY: CGFloat = touchP.y
+            let yRadio: CGFloat = touchY / self.frame.size.height
+            
+            _isDragMarker = self.isHighlightPerDragEnabled && yRadio <= self.highlightDragRadio;
+            _isDragging = (!self.hasNoDragOffset || !self.isFullyZoomedOut) && yRadio > highlightDragRadio
+            
+            if _outerScrollView !== nil
             {
-                _isDragging = true
-                
+                _outerScrollView?.nsuiIsScrollEnabled = !(_isDragMarker || _isDragging)
+            }
+            
+            if _isDragging
+            {
                 _closestDataSetToTouch = getDataSetByTouchPoint(point: recognizer.nsuiLocationOfTouch(0, inView: self))
                 
                 var translation = recognizer.translation(in: self)
@@ -723,16 +737,10 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
                 
                 _lastPanPoint = recognizer.translation(in: self)
             }
-            else if self.isHighlightPerDragEnabled
-            {
-                // We will only handle highlights on NSUIGestureRecognizerState.Changed
-                
-                _isDragging = false
-            }
         }
         else if recognizer.state == NSUIGestureRecognizerState.changed
         {
-            if _isDragging
+            if _isDragMarker
             {
                 let originalTranslation = recognizer.translation(in: self)
                 var translation = CGPoint(x: originalTranslation.x - _lastPanPoint.x, y: originalTranslation.y - _lastPanPoint.y)

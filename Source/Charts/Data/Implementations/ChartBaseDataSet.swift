@@ -365,6 +365,9 @@ open class ChartBaseDataSet: NSObject, IChartDataSet, NSCopying
     {
         return drawValuesEnabled
     }
+    
+    /// - The values text offset (similar to iconsOffset)
+    open var valuesOffset = CGPoint(x: 0, y: 0)
 
     /// Set this to true to draw y-icons on the chart.
     ///

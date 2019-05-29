@@ -504,8 +504,8 @@ open class LineChartRenderer: LineRadarRenderer
                                 dataSetIndex: i,
                                 viewPortHandler: viewPortHandler),
                             point: CGPoint(
-                                x: pt.x,
-                                y: pt.y - CGFloat(valOffset) - valueFont.lineHeight),
+                                x: pt.x + dataSet.valuesOffset.x,
+                                y: pt.y - CGFloat(valOffset) - valueFont.lineHeight + dataSet.valuesOffset.y),
                             align: .center,
                             attributes: [NSAttributedString.Key.font: valueFont, NSAttributedString.Key.foregroundColor: dataSet.valueTextColorAt(j)])
                     }
@@ -526,6 +526,8 @@ open class LineChartRenderer: LineRadarRenderer
     open override func drawExtras(context: CGContext)
     {
         drawCircles(context: context)
+        drawExtremeCircles(context: context)
+        drawCustomShape(context: context)
     }
     
     private func drawCircles(context: CGContext)
@@ -674,6 +676,158 @@ open class LineChartRenderer: LineRadarRenderer
         // Merge nested ordered arrays into the single accessibleChartElements.
         accessibleChartElements.append(contentsOf: accessibilityOrderedElements.flatMap { $0 } )
         accessibilityPostLayoutChangedNotification()
+    }
+    
+    /// 绘制极值点
+    private func drawExtremeCircles(context: CGContext)
+    {
+        guard
+            let dataProvider = dataProvider,
+            let lineData = dataProvider.lineData
+            else { return }
+        
+        let phaseY = animator.phaseY
+        
+        let dataSets = lineData.dataSets
+        
+        var pt = CGPoint()
+        var rect = CGRect()
+        
+        context.saveGState()
+        
+        for i in 0 ..< dataSets.count
+        {
+            guard let dataSet = lineData.getDataSetByIndex(i) as? ILineChartDataSet else { continue }
+            
+            if !dataSet.isVisible || !dataSet.isDrawExtremeCirclesEnabled || dataSet.entryCount == 0
+            {
+                continue
+            }
+            
+            let trans = dataProvider.getTransformer(forAxis: dataSet.axisDependency)
+            let valueToPixelMatrix = trans.valueToPixelMatrix
+            
+            _xBounds.set(chart: dataProvider, dataSet: dataSet, animator: animator)
+            
+            let circleRadius = dataSet.circleRadius + 1
+            let circleDiameter = circleRadius * 2.0
+            
+            for j in stride(from: _xBounds.min, through: _xBounds.range + _xBounds.min, by: 1)
+            {
+                guard let e = dataSet.entryForIndex(j) else { break }
+                if (e.data == nil)
+                {
+                    continue
+                }
+                pt.x = CGFloat(e.x)
+                pt.y = CGFloat(e.y * phaseY)
+                pt = pt.applying(valueToPixelMatrix)
+                
+                if (!viewPortHandler.isInBoundsRight(pt.x))
+                {
+                    break
+                }
+                
+                // make sure the circles don't do shitty things outside bounds
+                if (!viewPortHandler.isInBoundsLeft(pt.x) || !viewPortHandler.isInBoundsY(pt.y))
+                {
+                    continue
+                }
+                let type = e.data!
+                if type as! UInt64 == 1{
+                    context.setFillColor(dataSet.maxExtremeColor!.cgColor)
+                }
+                 if type as! UInt64 == 2{
+                    context.setFillColor(dataSet.minExtremeColor!.cgColor)
+                }
+                rect.origin.x = pt.x - circleRadius
+                rect.origin.y = pt.y - circleRadius
+                rect.size.width = circleDiameter
+                rect.size.height = circleDiameter
+                
+                context.fillEllipse(in: rect)
+            }
+        }
+        context.restoreGState()
+    }
+    
+    /// 绘制自定义形状
+    private func drawCustomShape(context: CGContext)
+    {
+        guard
+            let dataProvider = dataProvider,
+            let lineData = dataProvider.lineData
+            else { return }
+        
+        let phaseY = animator.phaseY
+        
+        let dataSets = lineData.dataSets
+        
+        var pt = CGPoint()
+        var dir : CGFloat = 0.0
+        var p1 = CGPoint()
+        var p2 = CGPoint()
+        var p3 = CGPoint()
+        var p4 = CGPoint()
+        
+        context.saveGState()
+        
+        for i in 0 ..< dataSets.count
+        {
+            guard let dataSet = lineData.getDataSetByIndex(i) as? ILineChartDataSet else { continue }
+            
+            if !dataSet.isVisible || !dataSet.isDrawCustomShapeEnabled || dataSet.entryCount == 0
+            {
+                continue
+            }
+            
+            let trans = dataProvider.getTransformer(forAxis: dataSet.axisDependency)
+            let valueToPixelMatrix = trans.valueToPixelMatrix
+            
+            _xBounds.set(chart: dataProvider, dataSet: dataSet, animator: animator)
+            
+            for j in stride(from: _xBounds.min, through: _xBounds.range + _xBounds.min, by: 1)
+            {
+                guard let e = dataSet.entryForIndex(j) else { break }
+                
+                pt.x = CGFloat(e.x)
+                pt.y = CGFloat(e.y * phaseY)
+                pt = pt.applying(valueToPixelMatrix)
+                
+                if (!viewPortHandler.isInBoundsRight(pt.x))
+                {
+                    break
+                }
+                
+                // make sure the circles don't do shitty things outside bounds
+                if (!viewPortHandler.isInBoundsLeft(pt.x) || !viewPortHandler.isInBoundsY(pt.y))
+                {
+                    continue
+                }
+                if (e.data == nil) {
+                    continue;
+                }
+                dir = e.data as! CGFloat
+                
+                let len : CGFloat = 10
+                p1 = CGPoint(x:pt.x + sin(dir/360.0*2*CGFloat.pi)*len, y:pt.y - cos(dir/360.0*2*CGFloat.pi)*len);
+                p2 = CGPoint(x:pt.x + sin((dir+135)/360.0*2*CGFloat.pi)*len, y:pt.y - cos((dir+135)/360.0*2*CGFloat.pi)*len);
+                p3 = CGPoint(x:pt.x + sin((dir+180)/360.0*2*CGFloat.pi)*len*0.25, y:pt.y - cos((dir+180)/360.0*2*CGFloat.pi)*len*0.25);
+                p4 = CGPoint(x:pt.x + sin((dir+225)/360.0*2*CGFloat.pi)*len, y:pt.y - cos((dir+225)/360.0*2*CGFloat.pi)*len);
+                
+                context.setFillColor(dataSet.customShapeColor!.cgColor)
+                context.setStrokeColor(dataSet.customShapeColor!.cgColor)
+                context.move(to: p1)
+                context.addLine(to: p2)
+                context.addLine(to: p3)
+                context.addLine(to: p4)
+                context.addLine(to: p1)
+                // Fill in-between
+                context.fillPath(using: .evenOdd)
+                context.strokePath()
+            }
+        }
+        context.restoreGState()
     }
     
     open override func drawHighlighted(context: CGContext, indices: [Highlight])

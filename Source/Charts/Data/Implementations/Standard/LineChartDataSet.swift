@@ -121,6 +121,22 @@ open class LineChartDataSet: LineRadarChartDataSet, ILineChartDataSet
     /// `true` if drawing circles for this DataSet is enabled, `false` ifnot
     open var drawCircleHoleEnabled = true
     
+    /// 绘制自定义形状
+    open var drawCustomShapeEnabled = false
+    
+    open var isDrawCustomShapeEnabled: Bool { return drawCustomShapeEnabled }
+    
+    open var customShapeColor: NSUIColor? = NSUIColor.red
+    
+    /// 绘制极值点
+    open var drawExtremeCirclesEnabled = false
+    
+    open var isDrawExtremeCirclesEnabled: Bool { return drawExtremeCirclesEnabled }
+    
+    open var maxExtremeColor: NSUIColor? = NSUIColor.red
+    
+    open var minExtremeColor: NSUIColor? = NSUIColor.green
+    
     /// `true` if drawing the circle-holes is enabled, `false` ifnot.
     open var isDrawCircleHoleEnabled: Bool { return drawCircleHoleEnabled }
     
