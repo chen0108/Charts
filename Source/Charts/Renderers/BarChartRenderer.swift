@@ -750,8 +750,6 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
             let barData = dataProvider.barData
             else { return }
         
-        context.saveGState()
-        
         var barRect = CGRect()
         
         for high in indices
@@ -770,6 +768,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                 
                 let trans = dataProvider.getTransformer(forAxis: set.axisDependency)
                 
+                context.saveGState()
                 context.setFillColor(set.highlightColor.cgColor)
                 context.setAlpha(set.highlightAlpha)
                 
@@ -804,10 +803,18 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                 setHighlightDrawPos(highlight: high, barRect: barRect)
                 
                 context.fill(barRect)
+                
+                context.restoreGState()
+                
+                let pt = CGPoint(x: barRect.origin.x + barRect.size.width/2, y: barRect.origin.y)
+
+                // draw the lines
+                drawHighlightLines(context: context, point: pt, set: set)
+
+                // draw xAxis highlight
+                drawXAxisHighlight(context: context, point: pt, set: set, entry: e)
             }
         }
-        
-        context.restoreGState()
     }
 
     /// Sets the drawing position of the highlight object based on the given bar-rect.

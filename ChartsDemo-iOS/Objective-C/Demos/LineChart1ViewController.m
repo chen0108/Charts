@@ -68,6 +68,8 @@
     
     _chartView.xAxis.gridLineDashLengths = @[@10.0, @10.0];
     _chartView.xAxis.gridLineDashPhase = 0.f;
+    _chartView.xAxis.labelPosition = XAxisLabelPositionBottom;
+    
     
     ChartLimitLine *ll1 = [[ChartLimitLine alloc] initWithLimit:150.0 label:@"Upper Limit"];
     ll1.lineWidth = 4.0;
@@ -156,7 +158,6 @@
         set1.drawIconsEnabled = NO;
         
         set1.lineDashLengths = @[@5.f, @2.5f];
-        set1.highlightLineDashLengths = @[@5.f, @2.5f];
         [set1 setColor:UIColor.blackColor];
         [set1 setCircleColor:UIColor.blackColor];
         set1.lineWidth = 1.0;

@@ -226,12 +226,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         }
         renderer.drawData(context: context)
         
-        // if highlighting is enabled
-        if (valuesToHighlight())
-        {
-            renderer.drawHighlighted(context: context, indices: _indicesToHighlight)
-        }
-        
         context.restoreGState()
         
         renderer.drawExtras(context: context)
@@ -273,6 +267,11 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
 
         drawDescription(context: context)
         
+        // if highlighting is enabled
+        if (valuesToHighlight())
+        {
+            renderer.drawHighlighted(context: context, indices: _indicesToHighlight)
+        }
         drawMarkers(context: context)
     }
     

@@ -699,18 +699,7 @@ open class LineChartRenderer: LineRadarRenderer
             {
                 continue
             }
-        
-            context.setStrokeColor(set.highlightColor.cgColor)
-            context.setLineWidth(set.highlightLineWidth)
-            if set.highlightLineDashLengths != nil
-            {
-                context.setLineDash(phase: set.highlightLineDashPhase, lengths: set.highlightLineDashLengths!)
-            }
-            else
-            {
-                context.setLineDash(phase: 0.0, lengths: [])
-            }
-            
+    
             let x = high.x // get the x-position
             let y = high.y * Double(animator.phaseY)
             
@@ -727,6 +716,9 @@ open class LineChartRenderer: LineRadarRenderer
             
             // draw the lines
             drawHighlightLines(context: context, point: pt, set: set)
+            
+            // draw xAxis highlight
+            drawXAxisHighlight(context: context, point: pt, set: set, entry: e)
         }
         
         context.restoreGState()

@@ -10,6 +10,7 @@
 //
 
 import Foundation
+import UIKit
 import CoreGraphics
 
 @objc(BarLineScatterCandleBubbleChartRenderer)
@@ -42,6 +43,75 @@ open class BarLineScatterCandleBubbleRenderer: DataRenderer
     internal func shouldDrawValues(forDataSet set: IChartDataSet) -> Bool
     {
         return set.isVisible && (set.isDrawValuesEnabled || set.isDrawIconsEnabled)
+    }
+    
+    ///
+    /// Draws vertical & horizontal highlight-lines if enabled.
+    /// :param: context
+    /// :param: points
+    /// :param: horizontal
+    /// :param: vertical
+    @objc open func drawHighlightLines(context: CGContext, point: CGPoint, set: IBarLineScatterCandleBubbleChartDataSet)
+    {
+        context.saveGState()
+        context.setStrokeColor(set.highlightColor.cgColor)
+        context.setLineWidth(set.highlightLineWidth)
+        if set.highlightLineDashLengths != nil
+        {
+            context.setLineDash(phase: set.highlightLineDashPhase, lengths: set.highlightLineDashLengths!)
+        }
+        else
+        {
+            context.setLineDash(phase: 0.0, lengths: [])
+        }
+        
+        // draw vertical highlight lines
+        if set.isVerticalHighlightIndicatorEnabled
+        {
+            context.beginPath()
+            context.move(to: CGPoint(x: point.x, y: viewPortHandler.contentTop))
+            context.addLine(to: CGPoint(x: point.x, y: viewPortHandler.contentBottom))
+            context.strokePath()
+        }
+        
+        // draw horizontal highlight lines
+        if set.isHorizontalHighlightIndicatorEnabled
+        {
+            context.beginPath()
+            context.move(to: CGPoint(x: viewPortHandler.contentLeft, y: point.y))
+            context.addLine(to: CGPoint(x: viewPortHandler.contentRight, y: point.y))
+            context.strokePath()
+        }
+        context.restoreGState()
+    }
+    
+    ///
+    @objc open func drawXAxisHighlight(context: CGContext, point: CGPoint, set: IBarLineScatterCandleBubbleChartDataSet, entry: ChartDataEntry)
+    {
+        context.saveGState()
+        context.setStrokeColor(set.xAxisHighlightColor.cgColor)
+        context.setLineWidth(set.xAxisHighlightLineWidth)
+        context.setFillColor(set.xAxisHighlightFillColor.cgColor)
+        
+        let radius = set.xAxisHighlightRadius
+        let center = CGPoint(x: point.x, y: viewPortHandler.contentBottom)
+        let fillRect = CGRect(x: point.x-radius, y: center.y-radius, width: radius*2, height: radius*2)
+        context.fillEllipse(in: fillRect)
+        context.strokePath()
+        context.addArc(center: center, radius: radius, startAngle: 0, endAngle: 6.29, clockwise: true)
+        context.strokePath()
+        
+        //
+        var drawAttributes = [NSAttributedString.Key : Any]()
+        drawAttributes[.font] = set.xAxisHighlightLabelFont
+        drawAttributes[.foregroundColor] = set.xAxisHighlightLabelColor
+        let label = String(format: "%.0f", entry.x)
+        let size = label.size(withAttributes: drawAttributes)
+
+        NSUIGraphicsPushContext(context)
+        label.draw(at: CGPoint(x: center.x-size.width/2.0, y: center.y-size.height/2.0), withAttributes: drawAttributes)
+        NSUIGraphicsPopContext()
+        context.restoreGState()
     }
 
     /// Class representing the bounds of the current viewport in terms of indices in the values array of a DataSet.

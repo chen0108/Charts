@@ -19,13 +19,34 @@ open class BarLineScatterCandleBubbleChartDataSet: ChartDataSet, IBarLineScatter
     
     // MARK: - Styling functions and accessors
     
-    open var highlightColor = NSUIColor(red: 255.0/255.0, green: 187.0/255.0, blue: 115.0/255.0, alpha: 1.0)
-    open var highlightLineWidth = CGFloat(0.5)
+    open var highlightColor = NSUIColor.red
+    open var highlightLineWidth = CGFloat(1)
     open var highlightLineDashPhase = CGFloat(0.0)
     open var highlightLineDashLengths: [CGFloat]?
     
-    // MARK: - NSCopying
+    open var drawHorizontalHighlightIndicatorEnabled = true
+    open var drawVerticalHighlightIndicatorEnabled = true
+    open var isHorizontalHighlightIndicatorEnabled: Bool { return drawHorizontalHighlightIndicatorEnabled }
+    open var isVerticalHighlightIndicatorEnabled: Bool { return drawVerticalHighlightIndicatorEnabled }
+    /// Enables / disables both vertical and horizontal highlight-indicators.
+    open func setDrawHighlightIndicators(_ enabled: Bool)
+    {
+        drawHorizontalHighlightIndicatorEnabled = enabled
+        drawVerticalHighlightIndicatorEnabled = enabled
+    }
+
+    // MARK: x轴视觉增强
+    open var drawXAxisHighlightEnabled = false
+    open var xAxisHighlightColor = NSUIColor.black
+    open var xAxisHighlightFillColor = NSUIColor.gray
+    open var xAxisHighlightLineWidth = CGFloat(2.0)
+    open var xAxisHighlightRadius = CGFloat(15.0)
+    open var xAxisHighlightLabelFont = NSUIFont.systemFont(ofSize: 13)
+    open var xAxisHighlightLabelColor = NSUIColor.black
+    open var isDrawXAxisHighlightEnabled: Bool { return drawXAxisHighlightEnabled }
     
+    // MARK: - NSCopying
+
     open override func copy(with zone: NSZone? = nil) -> Any
     {
         let copy = super.copy(with: zone) as! BarLineScatterCandleBubbleChartDataSet
@@ -33,6 +54,15 @@ open class BarLineScatterCandleBubbleChartDataSet: ChartDataSet, IBarLineScatter
         copy.highlightLineWidth = highlightLineWidth
         copy.highlightLineDashPhase = highlightLineDashPhase
         copy.highlightLineDashLengths = highlightLineDashLengths
+        copy.drawHorizontalHighlightIndicatorEnabled = drawHorizontalHighlightIndicatorEnabled
+        copy.drawVerticalHighlightIndicatorEnabled = drawVerticalHighlightIndicatorEnabled
+        copy.drawXAxisHighlightEnabled = drawXAxisHighlightEnabled
+        copy.xAxisHighlightColor = xAxisHighlightColor
+        copy.xAxisHighlightFillColor = xAxisHighlightFillColor
+        copy.xAxisHighlightLineWidth = xAxisHighlightLineWidth
+        copy.xAxisHighlightRadius = xAxisHighlightRadius
+        copy.xAxisHighlightLabelFont = xAxisHighlightLabelFont
+        copy.xAxisHighlightLabelColor = xAxisHighlightLabelColor
         return copy
     }
 }

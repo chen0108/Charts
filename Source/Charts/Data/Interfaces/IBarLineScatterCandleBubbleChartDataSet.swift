@@ -23,4 +23,22 @@ public protocol IBarLineScatterCandleBubbleChartDataSet: IChartDataSet
     var highlightLineWidth: CGFloat { get set }
     var highlightLineDashPhase: CGFloat { get set }
     var highlightLineDashLengths: [CGFloat]? { get set }
+    
+    var drawHorizontalHighlightIndicatorEnabled: Bool { get set }
+    var drawVerticalHighlightIndicatorEnabled: Bool { get set }
+    var isHorizontalHighlightIndicatorEnabled: Bool { get }
+    var isVerticalHighlightIndicatorEnabled: Bool { get }
+    /// Enables / disables both vertical and horizontal highlight-indicators.
+    /// :param: enabled
+    func setDrawHighlightIndicators(_ enabled: Bool)
+    
+    /// x轴视觉增强
+    var drawXAxisHighlightEnabled: Bool { get set }
+    var isDrawXAxisHighlightEnabled: Bool { get }
+    var xAxisHighlightColor: NSUIColor { get set }
+    var xAxisHighlightFillColor: NSUIColor { get set }
+    var xAxisHighlightLineWidth: CGFloat { get set }
+    var xAxisHighlightRadius: CGFloat { get set }
+    var xAxisHighlightLabelFont: NSUIFont { get set }
+    var xAxisHighlightLabelColor: NSUIColor { get set }
 }

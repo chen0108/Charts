@@ -400,6 +400,9 @@ open class CandleStickChartRenderer: LineScatterCandleRadarRenderer
             
             // draw the lines
             drawHighlightLines(context: context, point: pt, set: set)
+            
+            // draw xAxis highlight
+            drawXAxisHighlight(context: context, point: pt, set: set, entry: e)
         }
         
         context.restoreGState()

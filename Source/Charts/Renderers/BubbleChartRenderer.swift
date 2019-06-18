@@ -309,6 +309,12 @@ open class BubbleChartRenderer: BarLineScatterCandleBubbleRenderer
             context.strokeEllipse(in: rect)
             
             high.setDraw(x: _pointBuffer.x, y: _pointBuffer.y)
+            
+            // draw the lines
+            drawHighlightLines(context: context, point: _pointBuffer, set: dataSet)
+            
+            // draw xAxis highlight
+            drawXAxisHighlight(context: context, point: _pointBuffer, set: dataSet, entry: entry)
         }
     }
 

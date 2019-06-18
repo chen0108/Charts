@@ -242,6 +242,9 @@ open class ScatterChartRenderer: LineScatterCandleRadarRenderer
             
             // draw the lines
             drawHighlightLines(context: context, point: pt, set: set)
+            
+            // draw xAxis highlight
+            drawXAxisHighlight(context: context, point: pt, set: set, entry: entry)
         }
         
         context.restoreGState()
