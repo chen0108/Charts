@@ -43,6 +43,7 @@
                      @{@"key": @"toggleAutoScaleMinMax", @"label": @"Toggle auto scale min/max"},
                      @{@"key": @"toggleData", @"label": @"Toggle Data"},
                      @{@"key": @"toggleBarBorders", @"label": @"Show Bar Borders"},
+                     @{@"key": @"drawGradientBar", @"label": @"drawGradientBar"},
                      ];
     
     [self setupBarLineChartView:_chartView];
@@ -166,12 +167,29 @@
         
         data.barWidth = 0.9f;
         
+        NSArray *gradientColors = @[(id)[UIColor blueColor].CGColor,
+                                    (id)[UIColor greenColor].CGColor];
+        CGGradientRef gradient = CGGradientCreateWithColors(nil, (CFArrayRef)gradientColors, nil);
+        set1.barGradient = gradient;
+        set1.barAlpha = 0.5;
+        CGGradientRelease(gradient);
+        
         _chartView.data = data;
     }
 }
 
 - (void)optionTapped:(NSString *)key
 {
+    if ([key isEqualToString:@"drawGradientBar"])
+    {
+        for (id<IDangleChartDataSet> set in _chartView.data.dataSets)
+        {
+            set.drawGradientBar = !set.drawGradientBar;
+        }
+        
+        [_chartView notifyDataSetChanged];
+        return;
+    }
     [super handleOption:key forChartView:_chartView];
 }
 

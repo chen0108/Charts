@@ -135,6 +135,8 @@
 		5BEAED3C1ABC199F0013F194 /* ColoredLineChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BEAED3A1ABC199F0013F194 /* ColoredLineChartViewController.xib */; };
 		5BEAED401ABC1AC60013F194 /* SinusBarChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAED3E1ABC1AC60013F194 /* SinusBarChartViewController.m */; };
 		5BEAED411ABC1AC60013F194 /* SinusBarChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BEAED3F1ABC1AC60013F194 /* SinusBarChartViewController.xib */; };
+		7426A7CB22B8DDFE00C2B701 /* DangleChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7426A7CA22B8DDFE00C2B701 /* DangleChartViewController.xib */; };
+		7426A7CE22B8DE4100C2B701 /* DangleChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7426A7CD22B8DE4100C2B701 /* DangleChartViewController.m */; };
 		B64D06EB1FB199130067418D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B64D06EA1FB199130067418D /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -324,6 +326,9 @@
 		5BEAED3D1ABC1AC60013F194 /* SinusBarChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinusBarChartViewController.h; sourceTree = "<group>"; };
 		5BEAED3E1ABC1AC60013F194 /* SinusBarChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinusBarChartViewController.m; sourceTree = "<group>"; };
 		5BEAED3F1ABC1AC60013F194 /* SinusBarChartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SinusBarChartViewController.xib; sourceTree = "<group>"; };
+		7426A7CA22B8DDFE00C2B701 /* DangleChartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DangleChartViewController.xib; sourceTree = "<group>"; };
+		7426A7CC22B8DE4100C2B701 /* DangleChartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DangleChartViewController.h; sourceTree = "<group>"; };
+		7426A7CD22B8DE4100C2B701 /* DangleChartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DangleChartViewController.m; sourceTree = "<group>"; };
 		B64D06EA1FB199130067418D /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -440,6 +445,7 @@
 				5BEAED3A1ABC199F0013F194 /* ColoredLineChartViewController.xib */,
 				5BDEDC461ABB871E007D3A60 /* CombinedChartViewController.xib */,
 				5BEAED301ABC18F00013F194 /* CubicLineChartViewController.xib */,
+				7426A7CA22B8DDFE00C2B701 /* DangleChartViewController.xib */,
 				5BE6737F1D5B496500A87BA2 /* HalfPieChartViewController.xib */,
 				5BDEDC401ABB7F73007D3A60 /* HorizontalBarChartViewController.xib */,
 				5BD8F0731AB89CE500566E05 /* LineChart1ViewController.xib */,
@@ -542,6 +548,8 @@
 			children = (
 				5BEAED0F1ABBFB2B0013F194 /* AnotherBarChartViewController.h */,
 				5BEAED101ABBFB2B0013F194 /* AnotherBarChartViewController.m */,
+				7426A7CC22B8DE4100C2B701 /* DangleChartViewController.h */,
+				7426A7CD22B8DE4100C2B701 /* DangleChartViewController.m */,
 				5BD47E621ABB424E008FCEC6 /* BarChartViewController.h */,
 				5BD47E631ABB424E008FCEC6 /* BarChartViewController.m */,
 				55E3564E1ADC638F00A57971 /* BubbleChartViewController.h */,
@@ -766,6 +774,7 @@
 				5BEAED281ABC0BE20013F194 /* MultipleLinesChartViewController.xib in Resources */,
 				5B9624421B38608C007763E2 /* NegativeStackedBarChartViewController.xib in Resources */,
 				5B613DA41D526AD5000F1E98 /* radar_marker@3x.png in Resources */,
+				7426A7CB22B8DDFE00C2B701 /* DangleChartViewController.xib in Resources */,
 				5BE7E7631C693098000A0377 /* PositiveNegativeBarChartViewController.xib in Resources */,
 				5B0CC7861ABB875400665592 /* PieChartViewController.xib in Resources */,
 				5BEAED1C1ABBFB340013F194 /* ScatterChartViewController.xib in Resources */,
@@ -854,6 +863,7 @@
 				5BE673921D5B4E0900A87BA2 /* LineChartFilledViewController.m in Sources */,
 				5B8EAF281AB32CF5009697AA /* DemoBaseViewController.m in Sources */,
 				5BE673941D5B4E0900A87BA2 /* LineChartTimeViewController.m in Sources */,
+				7426A7CE22B8DE4100C2B701 /* DangleChartViewController.m in Sources */,
 				5B613DF01D5A50B6000F1E98 /* XYMarkerView.swift in Sources */,
 				5BEAED3B1ABC199F0013F194 /* ColoredLineChartViewController.m in Sources */,
 				5BDEDC411ABB7F73007D3A60 /* HorizontalBarChartViewController.m in Sources */,

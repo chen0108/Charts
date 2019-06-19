@@ -30,6 +30,10 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     private var _scaleXEnabled = true
     private var _scaleYEnabled = true
     
+    /// drag highlight effective range
+    @objc open var dragHighlightRangeEnabled = false
+    @objc open var dragHighlightReverseMinY: CGFloat = 0.0
+    @objc open var dragHighlightReverseMaxY: CGFloat = 100.0
     /// the color for the background of the chart-drawing area (everything behind the grid lines).
     @objc open var gridBackgroundColor = NSUIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
     
@@ -508,6 +512,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     }
     
     private var _isDragging = false
+    private var _isDragHighlight = false
     private var _isScaling = false
     private var _gestureScaleAxis = GestureScaleAxis.both
     private var _closestDataSetToTouch: IChartDataSet!
@@ -532,6 +537,16 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             if !isHighLightPerTapEnabled { return }
             
             let h = getHighlightByTouchPoint(recognizer.location(in: self))
+            
+            if self.dragHighlightRangeEnabled {
+                var pEndY = recognizer.location(in: self).y
+                let minY = self.frame.size.height - self.dragHighlightReverseMaxY
+                let maxY = self.frame.size.height - self.dragHighlightReverseMinY
+                if (pEndY < minY || pEndY > maxY)
+                {
+                    return;
+                }
+            }
             
             if h === nil || h == self.lastHighlighted
             {
@@ -683,9 +698,26 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             // If drag is enabled and we are in a position where there's something to drag:
             //  * If we're zoomed in, then obviously we have something to drag.
             //  * If we have a drag offset - we always have something to drag
-            if !self.hasNoDragOffset || !self.isFullyZoomedOut
+            
+            _isDragging = (!self.hasNoDragOffset || !self.isFullyZoomedOut)
+            _isDragHighlight = self.isHighlightPerDragEnabled;
+            
+            if self.dragHighlightRangeEnabled {
+                let touchY: CGFloat = recognizer.location(in: self).y
+                let minY = self.frame.size.height - self.dragHighlightReverseMaxY
+                let maxY = self.frame.size.height - self.dragHighlightReverseMinY
+                
+                _isDragging = _isDragging && (touchY < minY || touchY > maxY)
+                _isDragHighlight = _isDragHighlight && touchY >= minY && touchY <= maxY
+            }
+            
+            if _outerScrollView !== nil
             {
-                _isDragging = true
+                _outerScrollView?.nsuiIsScrollEnabled = !_isDragging
+            }
+            
+            if _isDragging
+            {
                 
                 _closestDataSetToTouch = getDataSetByTouchPoint(point: recognizer.nsuiLocationOfTouch(0, inView: self))
                 
@@ -722,12 +754,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
                 
                 _lastPanPoint = recognizer.translation(in: self)
             }
-            else if self.isHighlightPerDragEnabled
-            {
-                // We will only handle highlights on NSUIGestureRecognizerState.Changed
-                
-                _isDragging = false
-            }
         }
         else if recognizer.state == NSUIGestureRecognizerState.changed
         {
@@ -749,7 +775,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
                 
                 _lastPanPoint = originalTranslation
             }
-            else if isHighlightPerDragEnabled
+            else if _isDragHighlight
             {
                 let h = getHighlightByTouchPoint(recognizer.location(in: self))
                 

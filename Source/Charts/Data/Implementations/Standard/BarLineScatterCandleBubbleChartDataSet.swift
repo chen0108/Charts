@@ -24,8 +24,8 @@ open class BarLineScatterCandleBubbleChartDataSet: ChartDataSet, IBarLineScatter
     open var highlightLineDashPhase = CGFloat(0.0)
     open var highlightLineDashLengths: [CGFloat]?
     
-    open var drawHorizontalHighlightIndicatorEnabled = true
-    open var drawVerticalHighlightIndicatorEnabled = true
+    open var drawHorizontalHighlightIndicatorEnabled = false
+    open var drawVerticalHighlightIndicatorEnabled = false
     open var isHorizontalHighlightIndicatorEnabled: Bool { return drawHorizontalHighlightIndicatorEnabled }
     open var isVerticalHighlightIndicatorEnabled: Bool { return drawVerticalHighlightIndicatorEnabled }
     /// Enables / disables both vertical and horizontal highlight-indicators.

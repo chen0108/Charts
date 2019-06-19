@@ -10,6 +10,7 @@
 //
 
 #import "DemoListViewController.h"
+#import "DangleChartViewController.h"
 #import "LineChart1ViewController.h"
 #import "LineChart2ViewController.h"
 #import "BarChartViewController.h"
@@ -49,6 +50,11 @@
     self.title = @"Charts Demonstration";
 
     self.itemDefs = @[
+                      @{
+                          @"title": @"Dangle Chart",
+                          @"subtitle": @"A simple demonstration of the Dangle Chart.",
+                          @"class": DangleChartViewController.class
+                          },
                       @{
                           @"title": @"Line Chart",
                           @"subtitle": @"A simple demonstration of the linechart.",

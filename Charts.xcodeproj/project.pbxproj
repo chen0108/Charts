@@ -73,6 +73,13 @@
 		66A18A8EEBAAAC2EDA31ABEC /* ChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEC0C69C89CE9B99F3B4409 /* ChartDataSet.swift */; };
 		69EA073EDF75D49ABE1715D6 /* RadarChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9C3D69ACB5BDE22421E15 /* RadarChartRenderer.swift */; };
 		73EDF662AD989E930D365B72 /* PieHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7036F11832C017E26AC750A4 /* PieHighlighter.swift */; };
+		7426A7D022BA318600C2B701 /* DangleChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7426A7CF22BA318600C2B701 /* DangleChartView.swift */; };
+		7426A7D422BA31BA00C2B701 /* DangleChartDataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7426A7D122BA31B900C2B701 /* DangleChartDataEntry.swift */; };
+		7426A7D522BA31BA00C2B701 /* DangleChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7426A7D222BA31B900C2B701 /* DangleChartData.swift */; };
+		7426A7D622BA31BA00C2B701 /* DangleChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7426A7D322BA31BA00C2B701 /* DangleChartDataSet.swift */; };
+		7426A7D822BA31D200C2B701 /* IDangleChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7426A7D722BA31D200C2B701 /* IDangleChartDataSet.swift */; };
+		7426A7DA22BA31E900C2B701 /* DangleChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7426A7D922BA31E900C2B701 /* DangleChartDataProvider.swift */; };
+		7426A7DC22BA31FA00C2B701 /* DangleChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7426A7DB22BA31F900C2B701 /* DangleChartRenderer.swift */; };
 		758EB1C75063ED3373542F3B /* Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D64616883374310C505EC39 /* Highlight.swift */; };
 		779B46E9F13A087BFA47D539 /* DefaultAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4770E0F75EFFC30707A7C8 /* DefaultAxisValueFormatter.swift */; };
 		78084A4F1D850D5775BC139E /* XAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5225ABC3C0C2F65FC094EEBB /* XAxis.swift */; };
@@ -245,6 +252,13 @@
 		7036F11832C017E26AC750A4 /* PieHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieHighlighter.swift; path = Source/Charts/Highlight/PieHighlighter.swift; sourceTree = "<group>"; };
 		710D7C9B2F1DB4A331EE405A /* AnimatedViewPortJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedViewPortJob.swift; path = Source/Charts/Jobs/AnimatedViewPortJob.swift; sourceTree = "<group>"; };
 		72EAEBB7CF73E33565FC2896 /* ViewPortHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewPortHandler.swift; path = Source/Charts/Utils/ViewPortHandler.swift; sourceTree = "<group>"; };
+		7426A7CF22BA318600C2B701 /* DangleChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DangleChartView.swift; path = Source/Charts/Charts/DangleChartView.swift; sourceTree = "<group>"; };
+		7426A7D122BA31B900C2B701 /* DangleChartDataEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DangleChartDataEntry.swift; path = Source/Charts/Data/Implementations/Standard/DangleChartDataEntry.swift; sourceTree = "<group>"; };
+		7426A7D222BA31B900C2B701 /* DangleChartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DangleChartData.swift; path = Source/Charts/Data/Implementations/Standard/DangleChartData.swift; sourceTree = "<group>"; };
+		7426A7D322BA31BA00C2B701 /* DangleChartDataSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DangleChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/DangleChartDataSet.swift; sourceTree = "<group>"; };
+		7426A7D722BA31D200C2B701 /* IDangleChartDataSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IDangleChartDataSet.swift; path = Source/Charts/Data/Interfaces/IDangleChartDataSet.swift; sourceTree = "<group>"; };
+		7426A7D922BA31E900C2B701 /* DangleChartDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DangleChartDataProvider.swift; path = Source/Charts/Interfaces/DangleChartDataProvider.swift; sourceTree = "<group>"; };
+		7426A7DB22BA31F900C2B701 /* DangleChartRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DangleChartRenderer.swift; path = Source/Charts/Renderers/DangleChartRenderer.swift; sourceTree = "<group>"; };
 		75F279974FE650E57A061B09 /* BarChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartRenderer.swift; path = Source/Charts/Renderers/BarChartRenderer.swift; sourceTree = "<group>"; };
 		7A53A9E42FC07FFDACA937C1 /* IBarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IBarChartDataSet.swift; path = Source/Charts/Data/Interfaces/IBarChartDataSet.swift; sourceTree = "<group>"; };
 		7AB9062A28AAB9469752A954 /* ChartUtilsTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartUtilsTests.swift; path = Tests/Charts/ChartUtilsTests.swift; sourceTree = "<group>"; };
@@ -349,6 +363,7 @@
 				A140F644332704916947B58C /* CombinedChartDataProvider.swift */,
 				BFABD027DAF6851088F002AC /* LineChartDataProvider.swift */,
 				2FD37A55B4D85D883E29C744 /* ScatterChartDataProvider.swift */,
+				7426A7D922BA31E900C2B701 /* DangleChartDataProvider.swift */,
 			);
 			name = Interfaces;
 			sourceTree = "<group>";
@@ -459,6 +474,9 @@
 				12409C3EA15787C11AF0D2BC /* ChartDataEntryBase.swift */,
 				6CEC0C69C89CE9B99F3B4409 /* ChartDataSet.swift */,
 				0DDE409E9ECF54D2C146A6F0 /* CombinedChartData.swift */,
+				7426A7D222BA31B900C2B701 /* DangleChartData.swift */,
+				7426A7D122BA31B900C2B701 /* DangleChartDataEntry.swift */,
+				7426A7D322BA31BA00C2B701 /* DangleChartDataSet.swift */,
 				4C978F31F23C7D21197DC2A1 /* LineChartData.swift */,
 				A5A75AA73C5AA381DA517959 /* LineChartDataSet.swift */,
 				45E31A4356CC6F283C29954B /* LineRadarChartDataSet.swift */,
@@ -503,6 +521,7 @@
 			isa = PBXGroup;
 			children = (
 				E783CFB4889A767C76510917 /* BarChartView.swift */,
+				7426A7CF22BA318600C2B701 /* DangleChartView.swift */,
 				45C6D3723C4E001B119CA0C8 /* BarLineChartViewBase.swift */,
 				4EED352A98860E031F13AFB7 /* BubbleChartView.swift */,
 				BA1A58428DC4780BAB4EAADC /* CandleStickChartView.swift */,
@@ -614,6 +633,7 @@
 				F3788EC55EF908B0805D7C2F /* IBubbleChartDataSet.swift */,
 				18BFB0A14A5C47A302A597D9 /* ICandleChartDataSet.swift */,
 				3A32510073A303CBB38E094A /* IChartDataSet.swift */,
+				7426A7D722BA31D200C2B701 /* IDangleChartDataSet.swift */,
 				429E88F2729735DC092EE556 /* ILineChartDataSet.swift */,
 				4F7E6A99D82E6AE3804D5A39 /* ILineRadarChartDataSet.swift */,
 				9249AD9AEC8C85772365A128 /* ILineScatterCandleRadarChartDataSet.swift */,
@@ -634,6 +654,7 @@
 				BD5C6D20243EC2F19069AACD /* CandleStickChartRenderer.swift */,
 				0216EDC6A1FE272F4EB19FCF /* ChartDataRendererBase.swift */,
 				52265C1B343CCC41AF2300E3 /* CombinedChartRenderer.swift */,
+				7426A7DB22BA31F900C2B701 /* DangleChartRenderer.swift */,
 				539382766378B702660FDFB2 /* HorizontalBarChartRenderer.swift */,
 				F715DB2C56C9E0615542625B /* LegendRenderer.swift */,
 				0DABDBBCCE6B3620C967F04A /* LineChartRenderer.swift */,
@@ -846,6 +867,7 @@
 				2FBA7E982EB57932B9F3E9B5 /* YAxis.swift in Sources */,
 				E50D291A6B6E69BF0B56A67C /* ChartBaseDataSet.swift in Sources */,
 				3395682A1E27756651FF6F4D /* BarChartData.swift in Sources */,
+				7426A7D022BA318600C2B701 /* DangleChartView.swift in Sources */,
 				45C459FA25DFCBE62FA6A06C /* BarChartDataEntry.swift in Sources */,
 				17E994DA88777AA1D8CCFC58 /* BarChartDataSet.swift in Sources */,
 				7C9CE6718D18859A35146098 /* BarLineScatterCandleBubbleChartData.swift in Sources */,
@@ -859,6 +881,7 @@
 				81892994002C0640AD858748 /* ChartData.swift in Sources */,
 				EAEA60D22CA8C1B7E18D3F7D /* ChartDataEntry.swift in Sources */,
 				7D546013F3A14FF5BB7F3294 /* ChartDataEntryBase.swift in Sources */,
+				7426A7DA22BA31E900C2B701 /* DangleChartDataProvider.swift in Sources */,
 				66A18A8EEBAAAC2EDA31ABEC /* ChartDataSet.swift in Sources */,
 				331AA2C4BC34F56C23012F02 /* CombinedChartData.swift in Sources */,
 				C04D269AD4A373FD2B621C43 /* LineChartData.swift in Sources */,
@@ -880,7 +903,9 @@
 				0D8A89398F9BD5DCC8D7F976 /* ICandleChartDataSet.swift in Sources */,
 				E8F0F4F47CD7D72B4EE5A794 /* IChartDataSet.swift in Sources */,
 				F941C88BF814DF51C465CB95 /* ILineChartDataSet.swift in Sources */,
+				7426A7D622BA31BA00C2B701 /* DangleChartDataSet.swift in Sources */,
 				1311BEC21E9CC264E971EFAF /* ILineRadarChartDataSet.swift in Sources */,
+				7426A7D522BA31BA00C2B701 /* DangleChartData.swift in Sources */,
 				146EE16342C2BADC92E45BF2 /* ILineScatterCandleRadarChartDataSet.swift in Sources */,
 				FAAD9FF6565DED2652188584 /* IPieChartDataSet.swift in Sources */,
 				83BBAF3EDC31FD452F8BF1DB /* IRadarChartDataSet.swift in Sources */,
@@ -906,12 +931,14 @@
 				00BC23EF0E04E17188344403 /* BarChartDataProvider.swift in Sources */,
 				28FEE609C5B22FD64C7E5D10 /* BarLineScatterCandleBubbleChartDataProvider.swift in Sources */,
 				4272DA5D44AF7DA05A5A8287 /* BubbleChartDataProvider.swift in Sources */,
+				7426A7D422BA31BA00C2B701 /* DangleChartDataEntry.swift in Sources */,
 				30DCC4BAA5601B154ABADA13 /* CandleChartDataProvider.swift in Sources */,
 				FD37AAC0270F390FFC470A65 /* ChartDataProvider.swift in Sources */,
 				65EA404AE098EBCE8D5DE04B /* CombinedChartDataProvider.swift in Sources */,
 				2BA03CEC36BADCF682F1328B /* LineChartDataProvider.swift in Sources */,
 				0511E43EF3FD2CDE7F7F15DB /* ScatterChartDataProvider.swift in Sources */,
 				7EE6EFE70CF4D8B09CAFCD01 /* AnimatedMoveViewJob.swift in Sources */,
+				7426A7D822BA31D200C2B701 /* IDangleChartDataSet.swift in Sources */,
 				CC7F8198A13249B5DEBBF25E /* AnimatedViewPortJob.swift in Sources */,
 				0577C2B38BCE4C871F262714 /* AnimatedZoomViewJob.swift in Sources */,
 				02A6E6E1A82A27A66B8D08C4 /* MoveViewJob.swift in Sources */,
@@ -952,6 +979,7 @@
 				CB785FE9B6B312408D17BC3B /* ChartUtils.swift in Sources */,
 				8102A555DD6C93AC1290EA7C /* Fill.swift in Sources */,
 				E9FF0ECB5E0CA92DBF4C1BC4 /* Platform.swift in Sources */,
+				7426A7DC22BA31FA00C2B701 /* DangleChartRenderer.swift in Sources */,
 				DE0F434FE8C24C52B023370F /* Transformer.swift in Sources */,
 				8A463E2947F211C594CA5E95 /* TransformerHorizontalBarChart.swift in Sources */,
 				515E286E6C47594D3FFA3DD1 /* ViewPortHandler.swift in Sources */,

@@ -423,7 +423,9 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                 context.setFillColor(dataSet.color(atIndex: j).cgColor)
             }
             
-            context.fill(barRect)
+            if dataSet.isDrawGradientBar == false{
+                context.fill(barRect)
+            }
             
             if drawBorder
             {
@@ -449,6 +451,58 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
         }
         
         context.restoreGState()
+        
+        if dataSet.isDrawGradientBar {
+            drawGradientBar(context: context, dataSet: dataSet, index: index)
+        }
+    }
+    
+    open func drawGradientBar (context: CGContext, dataSet: IBarChartDataSet, index: Int)
+    {
+        guard let dataProvider = dataProvider else { return }
+        
+        let trans = dataProvider.getTransformer(forAxis: dataSet.axisDependency)
+        
+        prepareBuffer(dataSet: dataSet, index: index)
+        trans.rectValuesToPixel(&_buffers[index].rects)
+        
+        let buffer = _buffers[index]
+        
+        // In case the chart is stacked, we need to accomodate individual bars within accessibilityOrdereredElements
+        let isStacked = dataSet.isStacked
+        
+        for j in stride(from: 0, to: buffer.rects.count, by: 1)
+        {
+            let barRect = buffer.rects[j]
+            
+            if (!viewPortHandler.isInBoundsLeft(barRect.origin.x + barRect.size.width))
+            {
+                continue
+            }
+            
+            if (!viewPortHandler.isInBoundsRight(barRect.origin.x))
+            {
+                break
+            }
+
+            
+            context.saveGState()
+            
+            let path: CGMutablePath = CGMutablePath()
+            path.addRect(barRect)
+            path.closeSubpath()
+            
+            context.beginPath()
+            context.addPath(path)
+            context.setAlpha(dataSet.barAlpha)
+            context.clip()
+            context.drawLinearGradient(dataSet.barGradient!,
+                                       start: CGPoint(x: barRect.origin.x, y: barRect.origin.y),
+                                       end: CGPoint(x: barRect.origin.x, y: barRect.origin.y + barRect.size.height),
+                                       options: [.drawsAfterEndLocation, .drawsBeforeStartLocation])
+            
+            context.restoreGState()
+        }
     }
     
     open func prepareBarHighlight(

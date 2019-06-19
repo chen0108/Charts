@@ -93,16 +93,37 @@
 {
     NSMutableArray *yVals1 = [[NSMutableArray alloc] init];
     
+    self.chartView.leftAxis.axisMaximum = 50;
+    self.chartView.leftAxis.axisMinimum = 40;
+    [self.chartView.leftAxis setLabelCount:10];
+    
     for (int i = 0; i < count; i++)
     {
         double mult = (range + 1);
-        double val = (double) (arc4random_uniform(40)) + mult;
-        double high = (double) (arc4random_uniform(9)) + 8.0;
-        double low = (double) (arc4random_uniform(9)) + 8.0;
-        double open = (double) (arc4random_uniform(6)) + 1.0;
-        double close = (double) (arc4random_uniform(6)) + 1.0;
+//        double val = (double) (arc4random_uniform(40)) + mult;
+//        double high = (double) (arc4random_uniform(9)) + 8.0;
+//        double low = (double) (arc4random_uniform(9)) + 8.0;
+//        double open = (double) (arc4random_uniform(6)) + 1.0;
+//        double close = (double) (arc4random_uniform(6)) + 1.0;
+        
+        double val = 50;
+        double high = 10;
+        double low = 2;
+        double open = 1;
+        double close = 1;
+        
         BOOL even = i % 2 == 0;
-        [yVals1 addObject:[[CandleChartDataEntry alloc] initWithX:i shadowH:val + high shadowL:val - low open:even ? val + open : val - open close:even ? val - close : val + close icon: [UIImage imageNamed:@"icon"]]];
+//        [yVals1 addObject:[[CandleChartDataEntry alloc] initWithX:i
+//                                                          shadowH:val + high
+//                                                          shadowL:val - low
+//                                                             open:even ? val + open : val - open
+//                                                            close:even ? val - close : val + close
+//                                                             icon: [UIImage imageNamed:@"icon"]]];
+        if (even) {
+            [yVals1 addObject:[[CandleChartDataEntry alloc] initWithX:i shadowH:48 shadowL:42 open:46 close:44 icon: [UIImage imageNamed:@"icon"]]];
+        }else{
+            [yVals1 addObject:[[CandleChartDataEntry alloc] initWithX:i shadowH:49 shadowL:48 open:49 close:48 icon: [UIImage imageNamed:@"icon"]]];
+        }
     }
         
     CandleChartDataSet *set1 = [[CandleChartDataSet alloc] initWithEntries:yVals1 label:@"Data Set"];
@@ -110,9 +131,10 @@
     [set1 setColor:[UIColor colorWithWhite:80/255.f alpha:1.f]];
     
     set1.drawIconsEnabled = NO;
-    
+    set1.showCandleBar = NO;
     set1.shadowColor = UIColor.darkGrayColor;
-    set1.shadowWidth = 0.7;
+    set1.shadowWidth = 6;
+    
     set1.decreasingColor = UIColor.redColor;
     set1.decreasingFilled = YES;
     set1.increasingColor = [UIColor colorWithRed:122/255.f green:242/255.f blue:84/255.f alpha:1.f];
