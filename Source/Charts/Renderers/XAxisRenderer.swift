@@ -322,13 +322,38 @@ open class XAxisRenderer: AxisRendererBase
     
     @objc open func drawGridLine(context: CGContext, x: CGFloat, y: CGFloat)
     {
-        if x >= viewPortHandler.offsetLeft
-            && x <= viewPortHandler.chartWidth
-        {
-            context.beginPath()
-            context.move(to: CGPoint(x: x, y: viewPortHandler.contentTop))
-            context.addLine(to: CGPoint(x: x, y: viewPortHandler.contentBottom))
-            context.strokePath()
+        guard
+            let xAxis = self.axis as? XAxis
+            else { return }
+        
+        if xAxis.gridLineLength == 0 {
+            if x >= viewPortHandler.offsetLeft && x <= viewPortHandler.chartWidth
+            {
+                context.beginPath()
+                context.move(to: CGPoint(x: x, y: viewPortHandler.contentTop))
+                context.addLine(to: CGPoint(x: x, y: viewPortHandler.contentBottom))
+                context.strokePath()
+            }
+        }
+        else{
+            if xAxis.labelPosition == .top
+                || xAxis.labelPosition == .topInside
+                || xAxis.labelPosition == .bothSided
+            {
+                context.beginPath()
+                context.move(to: CGPoint(x: x, y: viewPortHandler.contentTop))
+                context.addLine(to: CGPoint(x: x, y: viewPortHandler.contentTop + xAxis.gridLineLength))
+                context.strokePath()
+            }
+            if xAxis.labelPosition == .bottom
+                || xAxis.labelPosition == .bottomInside
+                || xAxis.labelPosition == .bothSided
+            {
+                context.beginPath()
+                context.move(to: CGPoint(x: x, y: viewPortHandler.contentBottom))
+                context.addLine(to: CGPoint(x: x, y: viewPortHandler.contentBottom - xAxis.gridLineLength))
+                context.strokePath()
+            }
         }
     }
     

@@ -54,7 +54,8 @@ open class BarLineScatterCandleBubbleRenderer: DataRenderer
     @objc open func drawHighlightLines(context: CGContext, point: CGPoint, set: IBarLineScatterCandleBubbleChartDataSet)
     {
         context.saveGState()
-        context.setStrokeColor(set.highlightColor.cgColor)
+        
+        context.setStrokeColor(set.highlightLineColor.cgColor)
         context.setLineWidth(set.highlightLineWidth)
         if set.highlightLineDashLengths != nil
         {
@@ -85,32 +86,36 @@ open class BarLineScatterCandleBubbleRenderer: DataRenderer
         context.restoreGState()
     }
     
-    ///
-    @objc open func drawXAxisHighlight(context: CGContext, point: CGPoint, set: IBarLineScatterCandleBubbleChartDataSet, entry: ChartDataEntry)
+    /// draw XAxis Highlight
+    @objc open func drawXAxisHighlight(context: CGContext, point: CGPoint, set: IBarLineScatterCandleBubbleChartDataSet, entry: ChartDataEntry, xAxis: XAxis)
     {
         context.saveGState()
-        context.setStrokeColor(set.xAxisHighlightColor.cgColor)
-        context.setLineWidth(set.xAxisHighlightLineWidth)
-        context.setFillColor(set.xAxisHighlightFillColor.cgColor)
         
-        let radius = set.xAxisHighlightRadius
-        let center = CGPoint(x: point.x, y: viewPortHandler.contentBottom)
-        let fillRect = CGRect(x: point.x-radius, y: center.y-radius, width: radius*2, height: radius*2)
-        context.fillEllipse(in: fillRect)
-        context.strokePath()
-        context.addArc(center: center, radius: radius, startAngle: 0, endAngle: 6.29, clockwise: true)
-        context.strokePath()
-        
-        //
-        var drawAttributes = [NSAttributedString.Key : Any]()
-        drawAttributes[.font] = set.xAxisHighlightLabelFont
-        drawAttributes[.foregroundColor] = set.xAxisHighlightLabelColor
-        let label = String(format: "%.0f", entry.x)
-        let size = label.size(withAttributes: drawAttributes)
+        if set.isDrawXAxisHighlightEnabled
+        {
+            context.setStrokeColor(set.xAxisHighlightColor.cgColor)
+            context.setLineWidth(set.xAxisHighlightLineWidth)
+            context.setFillColor(set.xAxisHighlightFillColor.cgColor)
+            
+            let radius = set.xAxisHighlightRadius
+            let center = CGPoint(x: point.x, y: viewPortHandler.contentBottom)
+            let fillRect = CGRect(x: point.x-radius, y: center.y-radius, width: radius*2, height: radius*2)
+            context.fillEllipse(in: fillRect)
+            context.strokePath()
+            context.addArc(center: center, radius: radius, startAngle: 0, endAngle: 6.29, clockwise: true)
+            context.strokePath()
+            
+            // draw text
+            let label = xAxis.valueFormatter?.stringForValue(entry.x, axis: xAxis) ?? String(format: "%.0f", entry.x)
+            var drawAttributes = [NSAttributedString.Key : Any]()
+            drawAttributes[.font] = set.xAxisHighlightLabelFont
+            drawAttributes[.foregroundColor] = set.xAxisHighlightLabelColor
+            let size = label.size(withAttributes: drawAttributes)
+            NSUIGraphicsPushContext(context)
+            label.draw(at: CGPoint(x: center.x-size.width/2.0, y: center.y-size.height/2.0), withAttributes: drawAttributes)
+            NSUIGraphicsPopContext()
+        }
 
-        NSUIGraphicsPushContext(context)
-        label.draw(at: CGPoint(x: center.x-size.width/2.0, y: center.y-size.height/2.0), withAttributes: drawAttributes)
-        NSUIGraphicsPopContext()
         context.restoreGState()
     }
 

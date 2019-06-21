@@ -206,10 +206,32 @@ open class YAxisRenderer: AxisRendererBase
         context: CGContext,
         position: CGPoint)
     {
-        context.beginPath()
-        context.move(to: CGPoint(x: viewPortHandler.contentLeft, y: position.y))
-        context.addLine(to: CGPoint(x: viewPortHandler.contentRight, y: position.y))
-        context.strokePath()
+        guard
+            let yAxis = self.axis as? YAxis
+            else { return }
+        if yAxis.gridLineLength == 0 {
+            
+            context.beginPath()
+            context.move(to: CGPoint(x: viewPortHandler.contentLeft, y: position.y))
+            context.addLine(to: CGPoint(x: viewPortHandler.contentRight, y: position.y))
+            context.strokePath()
+        }
+        else{
+            if yAxis.axisDependency == .left
+            {
+                context.beginPath()
+                context.move(to: CGPoint(x: viewPortHandler.contentLeft, y: position.y))
+                context.addLine(to: CGPoint(x: viewPortHandler.contentLeft + yAxis.gridLineLength, y: position.y))
+                context.strokePath()
+            }
+            else
+            {
+                context.beginPath()
+                context.move(to: CGPoint(x: viewPortHandler.contentRight, y: position.y))
+                context.addLine(to: CGPoint(x: viewPortHandler.contentRight - yAxis.gridLineLength, y: position.y))
+                context.strokePath()
+            }
+        }
     }
     
     @objc open func transformedPositions() -> [CGPoint]
@@ -301,11 +323,11 @@ open class YAxisRenderer: AxisRendererBase
             
             context.saveGState()
             defer { context.restoreGState() }
-            
-            var clippingRect = viewPortHandler.contentRect
-            clippingRect.origin.y -= l.lineWidth / 2.0
-            clippingRect.size.height += l.lineWidth
-            context.clip(to: clippingRect)
+
+//            var clippingRect = viewPortHandler.contentRect
+//            clippingRect.origin.y -= l.lineWidth / 2.0
+//            clippingRect.size.height += l.lineWidth
+//            context.clip(to: clippingRect)
             
             position.x = 0.0
             position.y = CGFloat(l.limit)

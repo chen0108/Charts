@@ -244,7 +244,10 @@ open class ScatterChartRenderer: LineScatterCandleRadarRenderer
             drawHighlightLines(context: context, point: pt, set: set)
             
             // draw xAxis highlight
-            drawXAxisHighlight(context: context, point: pt, set: set, entry: entry)
+            if let chart = dataProvider as? ScatterChartView {
+                let xAxis = chart.xAxis
+                drawXAxisHighlight(context: context, point: pt, set: set, entry: entry, xAxis: xAxis)
+            }
         }
         
         context.restoreGState()

@@ -51,6 +51,7 @@
     _chartView.maxVisibleCount = 60;
     _chartView.pinchZoomEnabled = NO;
     _chartView.drawGridBackgroundEnabled = NO;
+    [_chartView setViewPortOffsetsWithLeft:50 top:20 right:20 bottom:30];
     
     ChartXAxis *xAxis = _chartView.xAxis;
     xAxis.labelPosition = XAxisLabelPositionBottom;
@@ -60,7 +61,8 @@
     ChartYAxis *leftAxis = _chartView.leftAxis;
     leftAxis.labelCount = 7;
     leftAxis.drawGridLinesEnabled = NO;
-    leftAxis.drawAxisLineEnabled = NO;
+    leftAxis.drawAxisLineEnabled = YES;
+    
     
     ChartYAxis *rightAxis = _chartView.rightAxis;
     rightAxis.enabled = NO;
@@ -107,7 +109,17 @@
     self.chartView.leftAxis.gridColor = UIColor.grayColor;
     [self.chartView.leftAxis setLabelCount:10];
     
-    for (int i = 0; i < count; i++)
+    // limit line
+    ChartLimitLine *llXAxis = [[ChartLimitLine alloc] initWithLimit:4.5 label:@"Index 10"];
+    llXAxis.lineWidth = 3.0;
+    llXAxis.xOffset = - 20;
+    llXAxis.yOffset = - 15;
+    llXAxis.labelPosition = ChartLimitLabelPositionBottomLeft;
+    llXAxis.valueFont = [UIFont systemFontOfSize:10.f];
+    [_chartView.leftAxis addLimitLine:llXAxis];
+    
+    
+    for (int i = 1; i < count; i++)
     {
         double high = (double) (arc4random_uniform(3)) +8;
         double low = (double) (arc4random_uniform(3)) + 1;
@@ -117,6 +129,7 @@
     
     DangleChartDataSet *set1 = [[DangleChartDataSet alloc] initWithEntries:yVals1 label:@"Data Set"];
     set1.axisDependency = AxisDependencyLeft;
+    set1.drawVerticalHighlightIndicatorEnabled = YES;
     [set1 setColor:[UIColor colorWithWhite:80/255.f alpha:1.f]];
     
     set1.drawIconsEnabled = NO;

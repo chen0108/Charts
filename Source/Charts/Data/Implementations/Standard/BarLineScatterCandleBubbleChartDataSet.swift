@@ -21,6 +21,7 @@ open class BarLineScatterCandleBubbleChartDataSet: ChartDataSet, IBarLineScatter
     
     open var highlightColor = NSUIColor.red
     open var highlightLineWidth = CGFloat(1)
+    open var highlightLineColor = NSUIColor.red
     open var highlightLineDashPhase = CGFloat(0.0)
     open var highlightLineDashLengths: [CGFloat]?
     

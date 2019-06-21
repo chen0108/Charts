@@ -718,7 +718,10 @@ open class LineChartRenderer: LineRadarRenderer
             drawHighlightLines(context: context, point: pt, set: set)
             
             // draw xAxis highlight
-            drawXAxisHighlight(context: context, point: pt, set: set, entry: e)
+            if let chart = dataProvider as? LineChartView {
+                let xAxis = chart.xAxis
+                drawXAxisHighlight(context: context, point: pt, set: set, entry: e, xAxis: xAxis)
+            }
         }
         
         context.restoreGState()

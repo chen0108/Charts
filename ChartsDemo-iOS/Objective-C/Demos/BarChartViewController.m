@@ -157,6 +157,7 @@
     {
         set1 = [[BarChartDataSet alloc] initWithEntries:yVals label:@"The year 2017"];
         [set1 setColors:ChartColorTemplates.material];
+        set1.drawVerticalHighlightIndicatorEnabled = YES;
         set1.drawIconsEnabled = NO;
         
         NSMutableArray *dataSets = [[NSMutableArray alloc] init];

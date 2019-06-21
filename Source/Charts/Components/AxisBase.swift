@@ -34,6 +34,7 @@ open class AxisBase: ComponentBase
     
     @objc open var gridColor = NSUIColor.gray.withAlphaComponent(0.9)
     @objc open var gridLineWidth = CGFloat(0.5)
+    @objc open var gridLineLength = CGFloat(0.0)
     @objc open var gridLineDashPhase = CGFloat(0.0)
     @objc open var gridLineDashLengths: [CGFloat]!
     @objc open var gridLineCap = CGLineCap.butt

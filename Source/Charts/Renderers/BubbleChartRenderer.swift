@@ -314,7 +314,10 @@ open class BubbleChartRenderer: BarLineScatterCandleBubbleRenderer
             drawHighlightLines(context: context, point: _pointBuffer, set: dataSet)
             
             // draw xAxis highlight
-            drawXAxisHighlight(context: context, point: _pointBuffer, set: dataSet, entry: entry)
+            if let chart = dataProvider as? BubbleChartView {
+                let xAxis = chart.xAxis
+                drawXAxisHighlight(context: context, point: _pointBuffer, set: dataSet, entry: entry, xAxis: xAxis)
+            }
         }
     }
 
