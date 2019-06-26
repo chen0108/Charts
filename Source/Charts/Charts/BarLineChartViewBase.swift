@@ -711,11 +711,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
                 _isDragHighlight = _isDragHighlight && touchY >= minY && touchY <= maxY
             }
             
-            if _outerScrollView !== nil
-            {
-                _outerScrollView?.nsuiIsScrollEnabled = !_isDragging
-            }
-            
             if _isDragging
             {
                 
@@ -754,6 +749,19 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
                 
                 _lastPanPoint = recognizer.translation(in: self)
             }
+            else if _isDragHighlight
+            {
+                // We will only handle highlights on NSUIGestureRecognizerState.Changed
+                let translation = recognizer.translation(in: self)
+                if translation.x != 0.0 {
+                    if _outerScrollView !== nil
+                    {
+                        // Prevent the parent scroll view from scrolling
+                        _outerScrollView?.nsuiIsScrollEnabled = false
+                    }
+                }
+            }
+            
         }
         else if recognizer.state == NSUIGestureRecognizerState.changed
         {

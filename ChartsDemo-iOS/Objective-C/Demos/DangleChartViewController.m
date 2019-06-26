@@ -105,7 +105,7 @@
     
     self.chartView.leftAxis.axisMaximum = 10;
     self.chartView.leftAxis.axisMinimum = 0;
-    self.chartView.leftAxis.drawGridLinesEnabled = YES;
+    self.chartView.leftAxis.drawGridLinesEnabled = NO;
     self.chartView.leftAxis.gridColor = UIColor.grayColor;
     [self.chartView.leftAxis setLabelCount:10];
     
@@ -116,12 +116,13 @@
     llXAxis.yOffset = - 15;
     llXAxis.labelPosition = ChartLimitLabelPositionBottomLeft;
     llXAxis.valueFont = [UIFont systemFontOfSize:10.f];
-    [_chartView.leftAxis addLimitLine:llXAxis];
+//    [_chartView.leftAxis addLimitLine:llXAxis];
     
     
     for (int i = 1; i < count; i++)
     {
-        double high = (double) (arc4random_uniform(3)) +8;
+//        double high = (double) (arc4random_uniform(3)) +8;
+        double high = 3;
         double low = (double) (arc4random_uniform(3)) + 1;
         double main = (double) (arc4random_uniform(3)) + 4;
         [yVals1 addObject:[[DangleChartDataEntry alloc] initWithX:i highValue:high lowValue:low mainValue:main]];
@@ -134,7 +135,8 @@
     
     set1.drawIconsEnabled = NO;
     set1.barSpace = 0.3;
-    set1.portSmooth = YES;
+//    set1.portSmooth = YES;
+    set1.drawBoundaryPointsEnable = YES;
     
     NSArray *gradientColors = @[(id)[UIColor blueColor].CGColor,
                                 (id)[UIColor greenColor].CGColor];

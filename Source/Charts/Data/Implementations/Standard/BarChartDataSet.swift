@@ -62,6 +62,12 @@ open class BarChartDataSet: BarLineScatterCandleBubbleChartDataSet, IBarChartDat
             }
         }
     }
+    open override func notifyDataSetChanged()
+    {
+        calcMinMax()
+        self.calcStackSize(entries: entries as! [BarChartDataEntry])
+        self.calcEntryCountIncludingStacks(entries: entries as! [BarChartDataEntry])
+    }
     
     /// calculates the maximum stacksize that occurs in the Entries array of this DataSet
     private func calcStackSize(entries: [BarChartDataEntry])

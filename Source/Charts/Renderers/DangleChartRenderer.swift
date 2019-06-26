@@ -97,6 +97,10 @@ open class DangleChartRenderer: LineScatterCandleRadarRenderer
                     _bodyRect.size.width = dataSet.barAbsoluteWidth
                 }
                 
+                if _bodyRect.size.height <= 0 {
+                    _bodyRect.size.height = 1;
+                }
+                
                 // draw body
                 context.saveGState()
                 
@@ -108,13 +112,13 @@ open class DangleChartRenderer: LineScatterCandleRadarRenderer
                 if dataSet.isPortSmooth {
                     let radius = _bodyRect.size.width/2
                     
-                    let centerTop = CGPoint(x: _bodyRect.origin.x + radius, y: _bodyRect.origin.y + radius)
-                    let leftTop = CGPoint(x: _bodyRect.origin.x, y: _bodyRect.origin.y + radius)
-                    let rightTop = CGPoint(x: _bodyRect.origin.x + _bodyRect.size.width, y: _bodyRect.origin.y + radius)
+                    let centerTop = CGPoint(x: _bodyRect.origin.x + radius, y: _bodyRect.origin.y)
+                    let leftTop = CGPoint(x: _bodyRect.origin.x, y: _bodyRect.origin.y)
+                    let rightTop = CGPoint(x: _bodyRect.origin.x + _bodyRect.size.width, y: _bodyRect.origin.y)
                     
-                    let centerBom = CGPoint(x: _bodyRect.origin.x + radius, y: _bodyRect.origin.y + _bodyRect.size.height - radius)
-                    let leftBom = CGPoint(x: _bodyRect.origin.x, y: _bodyRect.origin.y + _bodyRect.size.height - radius)
-                    let rightBom = CGPoint(x: _bodyRect.origin.x + _bodyRect.size.width, y: _bodyRect.origin.y + _bodyRect.size.height - radius)
+                    let centerBom = CGPoint(x: _bodyRect.origin.x + radius, y: _bodyRect.origin.y + _bodyRect.size.height)
+                    let leftBom = CGPoint(x: _bodyRect.origin.x, y: _bodyRect.origin.y + _bodyRect.size.height)
+                    let rightBom = CGPoint(x: _bodyRect.origin.x + _bodyRect.size.width, y: _bodyRect.origin.y + _bodyRect.size.height)
                     
                     path.move(to: leftTop)
                     path.addLine(to: leftBom)
@@ -131,7 +135,7 @@ open class DangleChartRenderer: LineScatterCandleRadarRenderer
                 }
                 context.beginPath()
                 context.setAlpha(dataSet.barAlpha)
-                context.clip()
+//                context.clip()
                 context.addPath(path)
                 context.fillPath()
                 context.restoreGState()
@@ -207,6 +211,9 @@ open class DangleChartRenderer: LineScatterCandleRadarRenderer
                 _bodyRect.size.width = dataSet.barAbsoluteWidth
             }
             
+            if _bodyRect.size.height <= 0 {
+                _bodyRect.size.height = 1;
+            }
             // draw gradient bar
             context.saveGState()
             
@@ -214,13 +221,13 @@ open class DangleChartRenderer: LineScatterCandleRadarRenderer
             if dataSet.isPortSmooth {
                 let radius = _bodyRect.size.width/2
                 
-                let centerTop = CGPoint(x: _bodyRect.origin.x + radius, y: _bodyRect.origin.y + radius)
-                let leftTop = CGPoint(x: _bodyRect.origin.x, y: _bodyRect.origin.y + radius)
-                let rightTop = CGPoint(x: _bodyRect.origin.x + _bodyRect.size.width, y: _bodyRect.origin.y + radius)
+                let centerTop = CGPoint(x: _bodyRect.origin.x + radius, y: _bodyRect.origin.y)
+                let leftTop = CGPoint(x: _bodyRect.origin.x, y: _bodyRect.origin.y)
+                let rightTop = CGPoint(x: _bodyRect.origin.x + _bodyRect.size.width, y: _bodyRect.origin.y)
 
-                let centerBom = CGPoint(x: _bodyRect.origin.x + radius, y: _bodyRect.origin.y + _bodyRect.size.height - radius)
-                let leftBom = CGPoint(x: _bodyRect.origin.x, y: _bodyRect.origin.y + _bodyRect.size.height - radius)
-                let rightBom = CGPoint(x: _bodyRect.origin.x + _bodyRect.size.width, y: _bodyRect.origin.y + _bodyRect.size.height - radius)
+                let centerBom = CGPoint(x: _bodyRect.origin.x + radius, y: _bodyRect.origin.y + _bodyRect.size.height)
+                let leftBom = CGPoint(x: _bodyRect.origin.x, y: _bodyRect.origin.y + _bodyRect.size.height)
+                let rightBom = CGPoint(x: _bodyRect.origin.x + _bodyRect.size.width, y: _bodyRect.origin.y + _bodyRect.size.height)
         
                 path.move(to: leftTop)
                 path.addLine(to: leftBom)
@@ -238,7 +245,7 @@ open class DangleChartRenderer: LineScatterCandleRadarRenderer
             context.beginPath()
             context.addPath(path)
             context.setAlpha(dataSet.barAlpha)
-            context.clip()
+//            context.clip()
             context.drawLinearGradient(dataSet.barGradient!,
                                        start: CGPoint(x: _bodyRect.origin.x, y: _bodyRect.origin.y),
                                        end: CGPoint(x: _bodyRect.origin.x, y: _bodyRect.origin.y + _bodyRect.size.height),
