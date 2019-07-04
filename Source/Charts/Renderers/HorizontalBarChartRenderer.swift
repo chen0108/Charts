@@ -400,8 +400,8 @@ open class HorizontalBarChartRenderer: BarChartRenderer
                                 context: context,
                                 value: valueText,
                                 xPos: (rect.origin.x + rect.size.width)
-                                    + (val >= 0.0 ? posOffset : negOffset),
-                                yPos: y + yOffset,
+                                    + (val >= 0.0 ? posOffset : negOffset) + dataSet.valuesOffset.x,
+                                yPos: y + yOffset + dataSet.valuesOffset.y,
                                 font: valueFont,
                                 align: textAlign,
                                 color: dataSet.valueTextColorAt(j))
@@ -481,8 +481,8 @@ open class HorizontalBarChartRenderer: BarChartRenderer
                                     context: context,
                                     value: valueText,
                                     xPos: (rect.origin.x + rect.size.width)
-                                        + (val >= 0.0 ? posOffset : negOffset),
-                                    yPos: rect.origin.y + yOffset,
+                                        + (val >= 0.0 ? posOffset : negOffset) + dataSet.valuesOffset.x,
+                                    yPos: rect.origin.y + yOffset + dataSet.valuesOffset.y,
                                     font: valueFont,
                                     align: textAlign,
                                     color: dataSet.valueTextColorAt(index))
@@ -583,8 +583,8 @@ open class HorizontalBarChartRenderer: BarChartRenderer
                                 {
                                     drawValue(context: context,
                                         value: valueText,
-                                        xPos: x,
-                                        yPos: y + yOffset,
+                                        xPos: x + dataSet.valuesOffset.x,
+                                        yPos: y + yOffset + dataSet.valuesOffset.y,
                                         font: valueFont,
                                         align: textAlign,
                                         color: dataSet.valueTextColorAt(index))

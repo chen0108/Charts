@@ -330,8 +330,8 @@ open class CandleStickChartRenderer: LineScatterCandleRadarRenderer
                                 dataSetIndex: i,
                                 viewPortHandler: viewPortHandler),
                             point: CGPoint(
-                                x: pt.x,
-                                y: pt.y - yOffset),
+                                x: pt.x + dataSet.valuesOffset.x,
+                                y: pt.y - yOffset + dataSet.valuesOffset.y),
                             align: .center,
                             attributes: [NSAttributedString.Key.font: valueFont, NSAttributedString.Key.foregroundColor: dataSet.valueTextColorAt(j)])
                     }

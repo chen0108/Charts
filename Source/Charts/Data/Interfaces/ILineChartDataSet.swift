@@ -64,6 +64,24 @@ public protocol ILineChartDataSet: ILineRadarChartDataSet
     /// `true` if drawing the circle-holes is enabled, `false` ifnot.
     var isDrawCircleHoleEnabled: Bool { get }
     
+    /// Draw extreme points
+    var drawExtremeCirclesEnabled: Bool { get set }
+    
+    var isDrawExtremeCirclesEnabled: Bool { get }
+    
+    var maxExtremeColor: NSUIColor { get set }
+    
+    var minExtremeColor: NSUIColor { get set }
+    
+    /// Draw extreme points
+    var drawCustomShapeEnabled: Bool { get set }
+    
+    var isDrawCustomShapeEnabled: Bool { get }
+   
+    var customShapeLength: CGFloat { get set }
+    
+    var customShapeFillColor: NSUIColor { get set }
+    
     /// This is how much (in pixels) into the dash pattern are we starting from.
     var lineDashPhase: CGFloat { get }
     

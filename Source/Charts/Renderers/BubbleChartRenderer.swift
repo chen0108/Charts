@@ -213,8 +213,8 @@ open class BubbleChartRenderer: BarLineScatterCandleBubbleRenderer
                         context: context,
                         text: text,
                         point: CGPoint(
-                            x: pt.x,
-                            y: pt.y - (0.5 * lineHeight)),
+                            x: pt.x + dataSet.valuesOffset.x,
+                            y: pt.y - (0.5 * lineHeight) + dataSet.valuesOffset.y),
                         align: .center,
                         attributes: [NSAttributedString.Key.font: valueFont, NSAttributedString.Key.foregroundColor: valueTextColor])
                 }

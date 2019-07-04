@@ -124,6 +124,24 @@ open class LineChartDataSet: LineRadarChartDataSet, ILineChartDataSet
     /// `true` if drawing the circle-holes is enabled, `false` ifnot.
     open var isDrawCircleHoleEnabled: Bool { return drawCircleHoleEnabled }
     
+    /// Draw extreme points (entry.data as! UInt64, 1 == max, 2 == min)
+    open var drawExtremeCirclesEnabled = false
+    
+    open var isDrawExtremeCirclesEnabled: Bool { return drawExtremeCirclesEnabled }
+    
+    open var maxExtremeColor: NSUIColor = NSUIColor.red
+    
+    open var minExtremeColor: NSUIColor = NSUIColor.green
+    
+    /// draw Custom Shape (entry.data as! CGFloat value)
+    open var drawCustomShapeEnabled = false
+    
+    open var isDrawCustomShapeEnabled: Bool { return drawCustomShapeEnabled }
+    
+    open var customShapeLength: CGFloat = 8.0
+    
+    open var customShapeFillColor: NSUIColor = NSUIColor.red
+    
     /// This is how much (in pixels) into the dash pattern are we starting from.
     open var lineDashPhase = CGFloat(0.0)
     

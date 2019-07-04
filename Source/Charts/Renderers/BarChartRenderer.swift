@@ -607,10 +607,10 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                                     entry: e,
                                     dataSetIndex: dataSetIndex,
                                     viewPortHandler: viewPortHandler),
-                                xPos: x,
+                                xPos: x + dataSet.valuesOffset.x,
                                 yPos: val >= 0.0
-                                    ? (rect.origin.y + posOffset)
-                                    : (rect.origin.y + rect.size.height + negOffset),
+                                    ? (rect.origin.y + posOffset + dataSet.valuesOffset.y)
+                                    : (rect.origin.y + rect.size.height + negOffset + dataSet.valuesOffset.y),
                                 font: valueFont,
                                 align: .center,
                                 color: dataSet.valueTextColorAt(j))
@@ -674,9 +674,9 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                                         entry: e,
                                         dataSetIndex: dataSetIndex,
                                         viewPortHandler: viewPortHandler),
-                                    xPos: x,
+                                    xPos: x + dataSet.valuesOffset.x,
                                     yPos: rect.origin.y +
-                                        (e.y >= 0 ? posOffset : negOffset),
+                                        (e.y >= 0 ? posOffset : negOffset) + dataSet.valuesOffset.y,
                                     font: valueFont,
                                     align: .center,
                                     color: dataSet.valueTextColorAt(index))
@@ -760,8 +760,8 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
                                             entry: e,
                                             dataSetIndex: dataSetIndex,
                                             viewPortHandler: viewPortHandler),
-                                        xPos: x,
-                                        yPos: y,
+                                        xPos: x + dataSet.valuesOffset.x,
+                                        yPos: y + dataSet.valuesOffset.y,
                                         font: valueFont,
                                         align: .center,
                                         color: dataSet.valueTextColorAt(index))
