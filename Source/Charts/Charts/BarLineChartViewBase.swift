@@ -40,6 +40,9 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     @objc open var borderColor = NSUIColor.black
     @objc open var borderLineWidth: CGFloat = 1.0
     
+    /// Whether to display multiple Highlight
+    @objc open var drawMultipleHighlight: Bool = true
+    
     /// flag indicating if the grid background should be drawn or not
     @objc open var drawGridBackgroundEnabled = false
     
@@ -536,10 +539,9 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         {
             if !isHighLightPerTapEnabled { return }
             
-            let h = getHighlightByTouchPoint(recognizer.location(in: self))
-            
-            if self.dragHighlightRangeEnabled {
-                var pEndY = recognizer.location(in: self).y
+            if self.dragHighlightRangeEnabled
+            {
+                let pEndY = recognizer.location(in: self).y
                 let minY = self.frame.size.height - self.dragHighlightReverseMaxY
                 let maxY = self.frame.size.height - self.dragHighlightReverseMinY
                 if (pEndY < minY || pEndY > maxY)
@@ -547,16 +549,33 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
                     return;
                 }
             }
-            
-            if h === nil || h == self.lastHighlighted
+            if drawMultipleHighlight
             {
-                lastHighlighted = nil
-                highlightValue(nil, callDelegate: true)
+                let listH = getHighlightsByTouchPoint(recognizer.location(in: self))
+                if listH.isEmpty || lastHighlighted == listH.first
+                {
+                    lastHighlighted = nil
+                    highlightValue(nil, callDelegate: true)
+                }
+                else
+                {
+                    lastHighlighted = listH.first
+                    highlightValues(listH)
+                }
             }
             else
             {
-                lastHighlighted = h
-                highlightValue(h, callDelegate: true)
+                let h = getHighlightByTouchPoint(recognizer.location(in: self))
+                if h === nil || h == self.lastHighlighted
+                {
+                    lastHighlighted = nil
+                    highlightValue(nil, callDelegate: true)
+                }
+                else
+                {
+                    lastHighlighted = h
+                    highlightValue(h, callDelegate: true)
+                }
             }
         }
     }
@@ -702,7 +721,8 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             _isDragging = (!self.hasNoDragOffset || !self.isFullyZoomedOut)
             _isDragHighlight = self.isHighlightPerDragEnabled;
             
-            if self.dragHighlightRangeEnabled {
+            if self.dragHighlightRangeEnabled
+            {
                 let touchY: CGFloat = recognizer.location(in: self).y
                 let minY = self.frame.size.height - self.dragHighlightReverseMaxY
                 let maxY = self.frame.size.height - self.dragHighlightReverseMinY
@@ -785,14 +805,27 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             }
             else if _isDragHighlight
             {
-                let h = getHighlightByTouchPoint(recognizer.location(in: self))
-                
-                let lastHighlighted = self.lastHighlighted
-                
-                if h != lastHighlighted
+                if drawMultipleHighlight
                 {
-                    self.lastHighlighted = h
-                    self.highlightValue(h, callDelegate: true)
+                    let listH = getHighlightsByTouchPoint(recognizer.location(in: self))
+                    let lastHighlighted = self.lastHighlighted
+                    
+                    if listH.first != lastHighlighted
+                    {
+                        self.lastHighlighted = listH.first
+                        self.highlightValues(listH)
+                    }
+                }
+                else
+                {
+                    let h = getHighlightByTouchPoint(recognizer.location(in: self))
+                    let lastHighlighted = self.lastHighlighted
+                    
+                    if h != lastHighlighted
+                    {
+                        self.lastHighlighted = h
+                        self.highlightValue(h, callDelegate: true)
+                    }
                 }
             }
         }

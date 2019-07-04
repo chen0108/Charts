@@ -70,7 +70,6 @@
     _chartView.xAxis.gridLineDashPhase = 0.f;
     _chartView.xAxis.labelPosition = XAxisLabelPositionBottom;
     
-    
     ChartLimitLine *ll1 = [[ChartLimitLine alloc] initWithLimit:150.0 label:@"Upper Limit"];
     ll1.lineWidth = 4.0;
     ll1.lineDashLengths = @[@5.f, @5.f];
@@ -109,7 +108,7 @@
     
     _chartView.legend.form = ChartLegendFormLine;
     
-    _sliderX.value = 45.0;
+    _sliderX.value = 30.0;
     _sliderY.value = 100.0;
     [self slidersValueChanged:nil];
     
@@ -136,11 +135,12 @@
 - (void)setDataCount:(int)count range:(double)range
 {
     NSMutableArray *values = [[NSMutableArray alloc] init];
-    
+    NSMutableArray *valuesExt = [[NSMutableArray alloc] init];
     for (int i = 0; i < count; i++)
     {
         double val = arc4random_uniform(range) + 3;
         [values addObject:[[ChartDataEntry alloc] initWithX:i y:val icon: [UIImage imageNamed:@"icon"]]];
+        [valuesExt addObject:[[ChartDataEntry alloc] initWithX:i y:val+50 icon: [UIImage imageNamed:@"icon"]]];
     }
     
     LineChartDataSet *set1 = nil;
@@ -167,6 +167,7 @@
         set1.formLineDashLengths = @[@5.f, @2.5f];
         set1.formLineWidth = 1.0;
         set1.formSize = 15.0;
+        set1.drawXAxisHighlightEnabled = YES;
         
         NSArray *gradientColors = @[
                                     (id)[ChartColorTemplates colorFromString:@"#00ff0000"].CGColor,
@@ -185,6 +186,36 @@
         
         LineChartData *data = [[LineChartData alloc] initWithDataSets:dataSets];
         
+        _chartView.data = data;
+    }
+    
+    
+    LineChartDataSet *set2 = nil;
+    if (_chartView.data.dataSetCount > 1){
+        set2 = (LineChartDataSet *)_chartView.data.dataSets[1];
+        [set2 replaceEntries: valuesExt];
+        [_chartView.data notifyDataChanged];
+        [_chartView notifyDataSetChanged];
+    }
+    else{
+        set2 = [[LineChartDataSet alloc] initWithEntries:valuesExt label:@"DataSet 2"];
+        set2.drawIconsEnabled = NO;
+        set2.lineDashLengths = @[@5.f, @2.5f];
+        [set2 setColor:UIColor.blackColor];
+        [set2 setCircleColor:UIColor.blackColor];
+        set2.lineWidth = 1.0;
+        set2.circleRadius = 3.0;
+        set2.drawCircleHoleEnabled = NO;
+        set2.valueFont = [UIFont systemFontOfSize:9.f];
+        set2.formLineDashLengths = @[@5.f, @2.5f];
+        set2.formLineWidth = 1.0;
+        set2.formSize = 15.0;
+        set2.drawXAxisHighlightEnabled = YES;
+        
+        NSMutableArray *dataSets = [[NSMutableArray alloc] init];
+        [dataSets addObjectsFromArray:_chartView.data.dataSets];
+        [dataSets addObject:set2];
+        LineChartData *data = [[LineChartData alloc] initWithDataSets:dataSets];
         _chartView.data = data;
     }
 }

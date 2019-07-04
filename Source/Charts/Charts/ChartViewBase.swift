@@ -563,6 +563,23 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
         
         return self.highlighter?.getHighlight(x: pt.x, y: pt.y)
     }
+    
+    /// - Returns: All Highlights object (contains x-index and DataSet index) of the
+    /// selected value at the given touch point inside the Line-, Scatter-, or
+    /// CandleStick-Chart.
+    @objc open func getHighlightsByTouchPoint(_ pt: CGPoint) -> [Highlight]
+    {
+        if _data === nil
+        {
+            Swift.print("Can't select by touch. No data set.")
+            return [Highlight]()
+        }
+        if self.highlighter === nil
+        {
+            return [Highlight]()
+        }
+        return self.highlighter!.getHighlights(x: pt.x, y: pt.y)
+    }
 
     /// The last value that was highlighted via touch.
     @objc open var lastHighlighted: Highlight?
