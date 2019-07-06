@@ -29,6 +29,8 @@ open class BarLineScatterCandleBubbleChartDataSet: ChartDataSet, IBarLineScatter
     open var drawVerticalHighlightIndicatorEnabled = false
     open var isHorizontalHighlightIndicatorEnabled: Bool { return drawHorizontalHighlightIndicatorEnabled }
     open var isVerticalHighlightIndicatorEnabled: Bool { return drawVerticalHighlightIndicatorEnabled }
+    open var horizontalHighlightIndicatorToPoint = false
+    open var verticalHighlightIndicatorToPoint = false
     /// Enables / disables both vertical and horizontal highlight-indicators.
     open func setDrawHighlightIndicators(_ enabled: Bool)
     {

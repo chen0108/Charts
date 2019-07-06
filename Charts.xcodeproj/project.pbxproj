@@ -80,6 +80,7 @@
 		7426A7D822BA31D200C2B701 /* IDangleChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7426A7D722BA31D200C2B701 /* IDangleChartDataSet.swift */; };
 		7426A7DA22BA31E900C2B701 /* DangleChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7426A7D922BA31E900C2B701 /* DangleChartDataProvider.swift */; };
 		7426A7DC22BA31FA00C2B701 /* DangleChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7426A7DB22BA31F900C2B701 /* DangleChartRenderer.swift */; };
+		74E5621D22CDDB990093F8C3 /* TextMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E5621C22CDDB990093F8C3 /* TextMarker.swift */; };
 		758EB1C75063ED3373542F3B /* Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D64616883374310C505EC39 /* Highlight.swift */; };
 		779B46E9F13A087BFA47D539 /* DefaultAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4770E0F75EFFC30707A7C8 /* DefaultAxisValueFormatter.swift */; };
 		78084A4F1D850D5775BC139E /* XAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5225ABC3C0C2F65FC094EEBB /* XAxis.swift */; };
@@ -259,6 +260,7 @@
 		7426A7D722BA31D200C2B701 /* IDangleChartDataSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IDangleChartDataSet.swift; path = Source/Charts/Data/Interfaces/IDangleChartDataSet.swift; sourceTree = "<group>"; };
 		7426A7D922BA31E900C2B701 /* DangleChartDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DangleChartDataProvider.swift; path = Source/Charts/Interfaces/DangleChartDataProvider.swift; sourceTree = "<group>"; };
 		7426A7DB22BA31F900C2B701 /* DangleChartRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DangleChartRenderer.swift; path = Source/Charts/Renderers/DangleChartRenderer.swift; sourceTree = "<group>"; };
+		74E5621C22CDDB990093F8C3 /* TextMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextMarker.swift; path = Source/Charts/Components/TextMarker.swift; sourceTree = "<group>"; };
 		75F279974FE650E57A061B09 /* BarChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartRenderer.swift; path = Source/Charts/Renderers/BarChartRenderer.swift; sourceTree = "<group>"; };
 		7A53A9E42FC07FFDACA937C1 /* IBarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IBarChartDataSet.swift; path = Source/Charts/Data/Interfaces/IBarChartDataSet.swift; sourceTree = "<group>"; };
 		7AB9062A28AAB9469752A954 /* ChartUtilsTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartUtilsTests.swift; path = Tests/Charts/ChartUtilsTests.swift; sourceTree = "<group>"; };
@@ -449,6 +451,7 @@
 				9E7C673B9ED4340F550A9283 /* LegendEntry.swift */,
 				392AAEB02DD7B351D92907C2 /* MarkerImage.swift */,
 				48164CCD83C51B496533CB77 /* MarkerView.swift */,
+				74E5621C22CDDB990093F8C3 /* TextMarker.swift */,
 				5225ABC3C0C2F65FC094EEBB /* XAxis.swift */,
 				FB92A80F861C1362EED8D946 /* YAxis.swift */,
 			);
@@ -858,6 +861,7 @@
 				4390D74986A92DEF4F4F2BF0 /* ChartLimitLine.swift in Sources */,
 				FDBDAFA7A5337C6E3992DACE /* ComponentBase.swift in Sources */,
 				DBC9DB402CC9BB84B76968C4 /* Description.swift in Sources */,
+				74E5621D22CDDB990093F8C3 /* TextMarker.swift in Sources */,
 				03960E8148C6AEDACE4B77CC /* IMarker.swift in Sources */,
 				ECE7EAE7179A7F57CE9BBD8F /* Legend.swift in Sources */,
 				C20A62D8CB9120523D5FB650 /* LegendEntry.swift in Sources */,

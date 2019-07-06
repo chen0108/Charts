@@ -13,6 +13,9 @@ import Foundation
 
 open class ChartDataEntry: ChartDataEntryBase, NSCopying
 {
+    /// the mark value
+    @objc public var markValue: Int = 0
+    
     /// the x value
     @objc open var x = 0.0
     
@@ -30,6 +33,13 @@ open class ChartDataEntry: ChartDataEntryBase, NSCopying
     {
         super.init(y: y)
         self.x = x
+    }
+    
+    /// An Entry represents one single entry in the chart.
+    @objc public convenience init(x: Double, y: Double, markValue: Int)
+    {
+        self.init(x: x, y: y)
+        self.markValue = markValue
     }
     
     /// An Entry represents one single entry in the chart.
@@ -89,7 +99,7 @@ open class ChartDataEntry: ChartDataEntryBase, NSCopying
         copy.x = x
         copy.y = y
         copy.data = data
-        
+        copy.markValue = markValue
         return copy
     }
 }

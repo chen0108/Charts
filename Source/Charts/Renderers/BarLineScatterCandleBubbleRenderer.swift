@@ -70,8 +70,15 @@ open class BarLineScatterCandleBubbleRenderer: DataRenderer
         if set.isVerticalHighlightIndicatorEnabled
         {
             context.beginPath()
-            context.move(to: CGPoint(x: point.x, y: viewPortHandler.contentTop))
-            context.addLine(to: CGPoint(x: point.x, y: viewPortHandler.contentBottom))
+            context.move(to: CGPoint(x: point.x, y: viewPortHandler.contentBottom))
+            if set.verticalHighlightIndicatorToPoint
+            {
+                context.addLine(to: point)
+            }
+            else
+            {
+                context.addLine(to: CGPoint(x: point.x, y: viewPortHandler.contentTop))
+            }
             context.strokePath()
         }
         
@@ -80,7 +87,14 @@ open class BarLineScatterCandleBubbleRenderer: DataRenderer
         {
             context.beginPath()
             context.move(to: CGPoint(x: viewPortHandler.contentLeft, y: point.y))
-            context.addLine(to: CGPoint(x: viewPortHandler.contentRight, y: point.y))
+            if set.horizontalHighlightIndicatorToPoint
+            {
+                context.addLine(to: point)
+            }
+            else
+            {
+                context.addLine(to: CGPoint(x: viewPortHandler.contentRight, y: point.y))
+            }
             context.strokePath()
         }
         context.restoreGState()

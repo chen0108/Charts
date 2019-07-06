@@ -97,13 +97,8 @@
     //[_chartView.viewPortHandler setMaximumScaleY: 2.f];
     //[_chartView.viewPortHandler setMaximumScaleX: 2.f];
     
-    BalloonMarker *marker = [[BalloonMarker alloc]
-                             initWithColor: [UIColor colorWithWhite:180/255. alpha:1.0]
-                             font: [UIFont systemFontOfSize:12.0]
-                             textColor: UIColor.whiteColor
-                             insets: UIEdgeInsetsMake(8.0, 8.0, 20.0, 8.0)];
+    TextMarker *marker = [[TextMarker alloc] initWithDrawShape:MarkerShapeBound font:[UIFont systemFontOfSize:12.0] textColor: UIColor.redColor];
     marker.chartView = _chartView;
-    marker.minimumSize = CGSizeMake(80.f, 40.f);
     _chartView.marker = marker;
     
     _chartView.legend.form = ChartLegendFormLine;
@@ -139,8 +134,10 @@
     for (int i = 0; i < count; i++)
     {
         double val = arc4random_uniform(range) + 3;
-        [values addObject:[[ChartDataEntry alloc] initWithX:i y:val icon: [UIImage imageNamed:@"icon"]]];
-        [valuesExt addObject:[[ChartDataEntry alloc] initWithX:i y:val+50 icon: [UIImage imageNamed:@"icon"]]];
+        [values addObject:[[ChartDataEntry alloc] initWithX:i y:val markValue:1]];
+        
+        ChartDataEntry *low = [[ChartDataEntry alloc] initWithX:i y:val+50 markValue:2];
+        [valuesExt addObject:low];
     }
     
     LineChartDataSet *set1 = nil;
@@ -168,6 +165,8 @@
         set1.formLineWidth = 1.0;
         set1.formSize = 15.0;
         set1.drawXAxisHighlightEnabled = YES;
+        set1.drawHorizontalHighlightIndicatorEnabled = YES;
+        set1.drawVerticalHighlightIndicatorEnabled = YES;
         
         NSArray *gradientColors = @[
                                     (id)[ChartColorTemplates colorFromString:@"#00ff0000"].CGColor,
